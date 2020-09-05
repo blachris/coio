@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration>
+    <Appenders>
+        <Console name="console">
+            <PatternLayout pattern="%r %p %c - %m%n"/>
+        </Console>
+        <RollingFile name="file" fileName="log.txt" filePattern="log-%i.txt">
+            <PatternLayout pattern="%d %p %c - %m%n"/>
+            <SizeBasedTriggeringPolicy size="10 MB"/>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.github.blachris" level="TRACE"/>
+
+        <Root level="WARN">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="file"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -1,0 +1,2 @@
+*.sh text=auto eol=lf
+coio/src/test/resources/testfile.txt binary

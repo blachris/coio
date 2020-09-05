@@ -1,0 +1,61 @@
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+dependencies {
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: "$kotlin_version"
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: "$kotlinxcoroutine_version"
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-jdk8', version: "$kotlinxcoroutine_version"
+    implementation group: 'io.github.microutils', name: 'kotlin-logging', version: "$kotlinlogging_version"
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: "$slf4j_version"
+
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: "$assertj_version"
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: "$junit5_version"
+    testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: "$junit5_version"
+    testRuntime group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: "$log4jslf4j_version"
+    testImplementation group: 'io.mockk', name: 'mockk', version: "$mockk_version"
+    testImplementation group: 'org.awaitility', name: 'awaitility', version: "$awaitility_version"
+    testImplementation group: 'org.awaitility', name: 'awaitility-kotlin', version: "$awaitility_version"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            artifact sourcesJar {
+                classifier "sources"
+            }
+            artifact javadocJar {
+                classifier "javadoc"
+            }
+            groupId project.group
+            artifactId project.name
+            version project.version
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', 'A library for a simple coroutine IO API, wrapping efficient non-blocking Java IO libs for easy use.')
+                root.appendNode('name', 'Kotlin Coroutine IO Library')
+                root.appendNode('url', 'https://github.com/gordonmu/coio')
+                root.children().last() + pomConfig
+            }
+        }
+    }
+}
+
+bintray {
+    user = bintrayUser
+    key = bintrayApikey
+    publications = ['maven']
+
+    pkg {
+        repo = 'jvm'
+        name = project.name
+        description = 'A library for a simple coroutine IO API, wrapping efficient non-blocking Java IO libs for easy use.'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/gordonmu/coio.git'
+        version {
+            name = project.version
+            desc = project.version
+            released = new Date()
+        }
+    }
+}

@@ -1,0 +1,8 @@
+rootProject.name = 'coio'
+
+include 'coio'
+include 'coio-tls'
+
+
+
+
