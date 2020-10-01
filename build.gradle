@@ -2,25 +2,23 @@ apply plugin: 'idea'
 apply plugin: 'maven'
 
 buildscript {
-    ext.kotlin_version = '1.3.50'
-    ext.kotlinxcoroutine_version = '1.3.2'
-    ext.kotlinlogging_version = '1.7.6'
-    ext.protobufgradle_version = '0.8.9'
-    ext.grpc_version = '1.24.0'
-    ext.tcnative_version = '2.0.25.Final'
-    ext.junit_version = '4.12'
-    ext.mockito_version = '1.10.19'
+    ext.kotlin_version = '1.4.0'
+    ext.kotlinxcoroutine_version = '1.3.9'
+    ext.kotlinlogging_version = '1.8.3'
+    ext.protobufgradle_version = '0.8.13'
+    ext.grpc_version = '1.31.1'
+    ext.tcnative_version = '2.0.34.Final'
     ext.jackson_version = '2.9.8'
     ext.protoc_version = '3.10.0'
     ext.kroto_version = '0.6.1'
-    ext.slf4j_version = '1.7.28'
-    ext.log4jslf4j_version = '2.12.1'
-    ext.junit5_version = '5.4.2'
-    ext.mockk_version = '1.9.3'
-    ext.assertj_version = '3.12.2'
-    ext.awaitility_version = '3.1.6'
-    ext.clikt_version = '2.1.0'
-    ext.doxygen_version = '0.5'
+    ext.slf4j_version = '1.7.30'
+    ext.log4jslf4j_version = '2.13.3'
+    ext.junit5_version = '5.6.2'
+    ext.mockk_version = '1.10.0'
+    ext.assertj_version = '3.17.2'
+    ext.awaitility_version = '4.0.3'
+    ext.clikt_version = '2.8.0'
+    ext.doxygen_version = '0.6'
 
 
     ext.repos = {
@@ -71,7 +69,7 @@ allprojects {
     apply plugin: 'maven-publish'
 
     group 'com.github.gordonmu.coio'
-    version = '0.7.0'
+    version = '0.7.1'
     if (!project.hasProperty("release")) {
         version += '-SNAPSHOT'
     }
@@ -79,14 +77,14 @@ allprojects {
     repositories repos
 
     compileKotlin {
-        kotlinOptions.jvmTarget = "11"
+        kotlinOptions.jvmTarget = "1.8"
     }
     compileTestKotlin {
-        kotlinOptions.jvmTarget = "11"
+        kotlinOptions.jvmTarget = "1.8"
     }
     java {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     jar {

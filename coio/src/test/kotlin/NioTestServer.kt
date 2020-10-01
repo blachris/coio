@@ -3,7 +3,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.nio.ByteBuffer
 
-fun main(args: Array<String>) {
+fun main() {
     runBlocking {
         val inc = CoIOTcp.listen(8775)
 

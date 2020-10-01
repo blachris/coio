@@ -8,8 +8,8 @@ dependencies {
     implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-jdk8', version: "$kotlinxcoroutine_version"
     implementation group: 'io.github.microutils', name: 'kotlin-logging', version: "$kotlinlogging_version"
     implementation group: 'org.slf4j', name: 'slf4j-api', version: "$slf4j_version"
-    implementation group: 'io.netty', name: 'netty-buffer', version: '4.1.45.Final'
-    implementation group: 'io.netty', name: 'netty-handler', version: '4.1.45.Final'
+    implementation group: 'io.netty', name: 'netty-buffer', version: '4.1.52.Final'
+    implementation group: 'io.netty', name: 'netty-handler', version: '4.1.52.Final'
     implementation group: 'com.github.marianobarrios', name: 'tls-channel', version: '0.4.0'
     runtime group: 'io.netty', name: 'netty-tcnative-boringssl-static', version: "$tcnative_version"
 

@@ -3,10 +3,10 @@ import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatCode
-import org.junit.Assert
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
+import org.junit.jupiter.api.fail
 import java.io.File
 import java.io.IOException
 import java.nio.ByteBuffer
@@ -111,7 +111,7 @@ class FileTests {
             assertThat(fc.filesCount).isEqualTo(1)
             assertThat(fc.bytesCount).isEqualTo(testFileSize)
             val h1 = fc.get("xyz", 1000000) { f ->
-                Assert.fail("should not regenerate cached file")
+                fail("should not regenerate cached file")
             }
             assertThat(fc.filesCount).isEqualTo(1)
             assertThat(fc.bytesCount).isEqualTo(testFileSize)
