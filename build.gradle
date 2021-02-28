@@ -2,8 +2,8 @@ apply plugin: 'idea'
 apply plugin: 'maven'
 
 buildscript {
-    ext.kotlin_version = '1.4.0'
-    ext.kotlinxcoroutine_version = '1.3.9'
+    ext.kotlin_version = '1.4.20'
+    ext.kotlinxcoroutine_version = '1.4.2'
     ext.kotlinlogging_version = '1.8.3'
     ext.protobufgradle_version = '0.8.13'
     ext.grpc_version = '1.31.1'
@@ -69,7 +69,7 @@ allprojects {
     apply plugin: 'maven-publish'
 
     group 'com.github.gordonmu.coio'
-    version = '0.7.1'
+    version = '0.8.0'
     if (!project.hasProperty("release")) {
         version += '-SNAPSHOT'
     }

@@ -244,9 +244,19 @@ class PathTreeMapTests {
 
         @Test
         fun `can overwrite existing values`() {
+            val oldSize = map.size
+
             assertThat(map.put(listOf("A"), "Atest")).isEqualTo("A")
 
             assertThat(map.put(listOf("F", "F", "A"), "FFAtest")).isEqualTo("F/F/A")
+
+            assertThat(map.put(listOf("F", "F"), "FFtest")).isNull()
+
+            assertThat(map).hasSize(oldSize + 1)
+
+            assertThat(map.remove(listOf("F", "F"))).isNotNull()
+
+            assertThat(map).hasSize(oldSize)
         }
 
         @TestInstance(TestInstance.Lifecycle.PER_CLASS)

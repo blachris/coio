@@ -2,7 +2,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
 dependencies {
-    implementation project(":coio")
+    implementation project(":gordonmu-coio")
     implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: "$kotlin_version"
     implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: "$kotlinxcoroutine_version"
     implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-jdk8', version: "$kotlinxcoroutine_version"

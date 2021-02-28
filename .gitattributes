@@ -1,2 +1,2 @@
 *.sh text=auto eol=lf
-coio/src/test/resources/testfile.txt binary
+gordonmu-coio/src/test/resources/testfile.txt binary
