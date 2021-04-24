@@ -1,5 +1,5 @@
-apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
 dependencies {
     implementation project(":gordonmu-coio")
@@ -46,21 +46,55 @@ publishing {
     }
 }
 
-bintray {
-    user = bintrayUser
-    key = bintrayApikey
-    publications = ['maven']
+if (project.hasProperty('signing.keyId') && project.hasProperty('signing.password') && project.hasProperty('signing.secretKeyRingFile')) {
+    signing {
+        sign configurations.archives
+    }
+}
 
-    pkg {
-        repo = 'jvm'
-        name = project.name
-        description = 'A CoIO extension to use TLS over any CoIOStream.'
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/gordonmu/coio.git'
-        version {
-            name = project.version
-            desc = project.version
-            released = new Date()
+if (project.hasProperty('ossrhUsername') && project.hasProperty('ossrhPassword')) {
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
+
+                snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
+
+                pom.project {
+                    name project.name
+                    packaging 'jar'
+                    // optionally artifactId can be defined here
+                    description 'A CoIO extension to use TLS over any CoIOStream.'
+                    url 'https://github.com/gordonmu/coio'
+
+                    scm {
+                        connection 'scm:git:https://github.com/gordonmu/coio.git'
+                        developerConnection 'scm:git:https://github.com/gordonmu/coio.git'
+                        url 'https://github.com/gordonmu/coio'
+                    }
+
+                    licenses {
+                        license {
+                            name 'The Apache License, Version 2.0'
+                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'gordonmu'
+                            name 'Gordon Mu'
+                            email '70778512+gordonmu@users.noreply.github.com'
+                        }
+                    }
+                }
+            }
         }
     }
 }

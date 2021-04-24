@@ -24,7 +24,6 @@ buildscript {
     ext.repos = {
         mavenLocal()
         mavenCentral()
-        jcenter()
         maven {
             url 'https://plugins.gradle.org/m2/'
         }
@@ -36,7 +35,6 @@ buildscript {
         classpath group: 'org.jetbrains.kotlin', name: 'kotlin-gradle-plugin', version: "$kotlin_version"
         classpath group: 'com.google.protobuf', name: 'protobuf-gradle-plugin', version: "$protobufgradle_version"
         classpath group: 'org.ysb33r.gradle', name: 'doxygen', version: "$doxygen_version"
-        classpath group: 'com.jfrog.bintray.gradle', name: 'gradle-bintray-plugin', version: '1.+'
     }
 
     if (project.hasProperty("executeAllTests") && project.findProperty("executeAllTests").toBoolean()) {
@@ -44,10 +42,6 @@ buildscript {
     }
 }
 
-if (!project.hasProperty('bintrayUser'))
-    ext.bintrayUser = ''
-if (!project.hasProperty('bintrayApikey'))
-    ext.bintrayApikey = ''
 ext.pomConfig = {
     licenses {
         license {
@@ -68,7 +62,7 @@ allprojects {
     apply plugin: 'kotlin'
     apply plugin: 'maven-publish'
 
-    group 'com.github.gordonmu.coio'
+    group 'io.github.gordonmu'
     version = '0.8.0'
     if (!project.hasProperty("release")) {
         version += '-SNAPSHOT'
@@ -103,20 +97,17 @@ allprojects {
         useJUnitPlatform()
     }
 
-    javadoc.options.addStringOption('Xdoclint:none', '-quiet')
-    javadoc.failOnError = false
     task javadocJar(type: Jar, dependsOn: javadoc) {
-        from javadoc.destinationDir
-        archiveClassifier.set('javadoc')
+        archiveClassifier = 'javadoc'
+        from javadoc
     }
 
     task sourcesJar(type: Jar, dependsOn: classes) {
+        archiveClassifier = 'sources'
         from sourceSets.main.allSource
-        archiveClassifier.set('sources')
     }
 
     artifacts {
-        archives sourcesJar
-        archives javadocJar
+        archives sourcesJar, javadocJar
     }
 }
