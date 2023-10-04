@@ -1,0 +1,60 @@
+dependencies {
+    implementation project(":blachris-coio")
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: "$kotlin_version"
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: "$kotlinxcoroutine_version"
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-jdk8', version: "$kotlinxcoroutine_version"
+    implementation group: 'io.github.microutils', name: 'kotlin-logging', version: "$kotlinlogging_version"
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: "$slf4j_version"
+    implementation group: 'io.netty', name: 'netty-buffer', version: '4.1.99.Final'
+    implementation group: 'io.netty', name: 'netty-handler', version: '4.1.99.Final'
+    implementation group: 'com.github.marianobarrios', name: 'tls-channel', version: '0.4.0'
+    implementation group: 'io.netty', name: 'netty-tcnative-boringssl-static', version: "$tcnative_version"
+
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: "$assertj_version"
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: "$junit5_version"
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: "$junit5_version"
+    testImplementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: "$log4jslf4j_version"
+    testImplementation group: 'io.mockk', name: 'mockk', version: "$mockk_version"
+    testImplementation group: 'org.awaitility', name: 'awaitility', version: "$awaitility_version"
+    testImplementation group: 'org.awaitility', name: 'awaitility-kotlin', version: "$awaitility_version"
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourcesJar {
+                archiveClassifier.set("sources")
+            }
+            artifact javadocJar {
+                archiveClassifier.set("javadoc")
+            }
+            groupId project.group
+            artifactId project.name
+            version project.version
+            pom(commonPom)
+            pom {
+                name = 'CoIO TLS Extension'
+                description = 'A CoIO extension to use TLS over any CoIOStream.'
+                url = 'https://github.com/blachris/coio'
+            }
+        }
+    }
+    repositories {
+        maven {
+            url "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2"
+            credentials {
+                if (project.hasProperty('ossrhUsername') && project.hasProperty('ossrhPassword')) {
+                    username = ossrhUsername
+                    password = ossrhPassword
+                }
+            }
+        }
+    }
+}
+
+if (project.hasProperty('signing.keyId') && project.hasProperty('signing.password') && project.hasProperty('signing.secretKeyRingFile')) {
+    signing {
+        sign publishing.publications.mavenJava
+    }
+}

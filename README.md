@@ -1,5 +1,5 @@
-![Java CI](https://github.com/gordonmu/coio/workflows/Java%20CI/badge.svg)
- [ ![Download](https://api.bintray.com/packages/gordonmu/jvm/coio/images/download.svg) ](https://bintray.com/gordonmu/jvm/coio/_latestVersion)
+![Java CI](https://github.com/blachris/coio/workflows/Java%20CI/badge.svg)
+ [ ![Download](https://api.bintray.com/packages/blachris/jvm/coio/images/download.svg) ](https://bintray.com/blachris/jvm/coio/_latestVersion)
 
 # CoIO
 
