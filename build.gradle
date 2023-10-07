@@ -60,7 +60,7 @@ ext {
         developers {
             developer {
                 id = 'blachris'
-                name = 'Gordon Mu'
+                name = 'Christopher Schwarzer'
                 email = '70778512+blachris@users.noreply.github.com'
             }
         }
